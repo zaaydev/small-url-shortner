@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL Shortener</title>
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Optional: custom theme tweak -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gameYellow: "#facc15",
+                        darkBg: "#0f0f0f",
+                        darkCard: "#181818",
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+
+<body class="bg-darkBg min-h-screen flex items-center justify-center text-white">
+
+    <!-- Main Card -->
+    <div class="bg-darkCard w-[90%] rounded-2xl p-6 shadow-xl border border-yellow-400/20">
+
+        <!-- Title -->
+        <h1 class="text-2xl font-bold text-center mb-2">
+            🎯 URL Shortener
+        </h1>
+        <p class="text-center text-white/60 text-sm mb-6">
+            Turn long links into tiny wins
+        </p>
+
+        <!-- Input -->
+        <form class="max-w-md mx-auto" method="POST" action="/generateurl" class="mb-4">
+            <input name="userurl" type="text" placeholder="Paste your long URL here..." class="w-full px-4 py-3 rounded-xl bg-black border border-white/10
+               focus:outline-none focus:border-gameYellow
+               placeholder:text-white/30" />
+
+
+            <!-- Button -->
+            <button class="my-4 w-full py-3 rounded-xl font-semibold
+             bg-gameYellow text-black
+             hover:scale-[1.02] active:scale-95
+             transition-all duration-150 shadow-lg shadow-yellow-500/20">
+                🚀 Shorten URL
+            </button>
+
+        </form>
+
+        <!-- Table Card -->
+        <div class="max-w-5xl mx-auto bg-darkCard rounded-2xl border border-yellow-400/20 overflow-hidden">
+
+            <!-- Table Header -->
+            <div class="grid grid-cols-12 gap-4 px-4 py-3 bg-black text-xs text-white/60 uppercase">
+                <div class="col-span-3">Short URL</div>
+                <div class="col-span-5">Original URL</div>
+                <div class="col-span-2 text-center">Clicks</div>
+                <div class="col-span-2 text-center">Created</div>
+            </div>
+
+            <!-- Rows -->
+            <% urls.forEach(url=> { %>
+                <div class="grid grid-cols-12 gap-4 px-4 py-4 border-t border-white/5 hover:bg-black/40 transition">
+
+                    <!-- Short URL -->
+                    <a href="/url/<%= url.shortId %>" class="col-span-3 text-gameYellow font-semibold hover:underline">
+                        short.ly/<%= url.shortId %>
+                    </a>
+
+                    <!-- Original URL -->
+                    <div class="col-span-5 text-white/70 truncate">
+                        <%= url.redirectUrl %>
+                    </div>
+
+                    <!-- Click Count -->
+                    <div class="col-span-2 text-center">
+                        🔥 <%= url.visitHistory.length %>
+                    </div>
+
+                    <!-- Created Time -->
+                    <div class="col-span-2 text-center text-white/50 text-sm">
+                        <%= url.createdAt.toDateString() %>
+                    </div>
+
+                </div>
+                <% }) %>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
