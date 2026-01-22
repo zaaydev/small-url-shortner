@@ -6,7 +6,9 @@ The project demonstrates how short links are generated, stored, tracked, and red
 
 ---
 
---- ## 📸 Screenshots ![Chat Page UI](./static/screenshot.png)
+--- ## 📸 Screenshots 
+
+![Chat Page UI](./static/screenshot.png)
 
 ---
 
